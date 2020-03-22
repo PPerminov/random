@@ -31,17 +31,18 @@ func RandomBytes(size int) (rb []byte, err error) {
 	return
 }
 
-func RandomString(size int, t int) (s string, err error) {
+func RandomString(size int, t int) (string) {
 	rb := make([]byte, 0)
 	sorter := Constructor(t)
 	for len(rb) != size {
 		rbTmp := make([]byte, 1)
-		_, err = rand.Read(rbTmp)
+		_, err := rand.Read(rbTmp)
+		if err != nil {panic(err)}
 		if sorter(z{rbTmp[0], false}).t {
 			rb = append(rb, rbTmp[0])
 		}
 	}
-	return string(rb), err
+	return string(rb)
 }
 
 type z struct {
